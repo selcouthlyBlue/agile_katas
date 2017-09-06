@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/tenniskata.iml" filepath="$PROJECT_DIR$/tenniskata.iml" />
+      <module fileurl="file://$PROJECT_DIR$/tennis.iml" filepath="$PROJECT_DIR$/tennis.iml" />
     </modules>
   </component>
 </project>
