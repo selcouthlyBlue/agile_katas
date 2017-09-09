@@ -1,11 +1,10 @@
-import java.util.SortedMap;
-import java.util.TreeMap;
+import java.util.*;
 
 public class FizzBuzzGame {
     private SortedMap<Integer, String> substitutions;
 
     public FizzBuzzGame() {
-        substitutions = new TreeMap<Integer, String>();
+        substitutions = new TreeMap<>();
     }
 
     public void addSubstitution(int number, String expectedSubstitution){
@@ -13,19 +12,13 @@ public class FizzBuzzGame {
     }
 
     public String input(int number) {
-        StringBuilder sb = new StringBuilder();
-        boolean isMultipleOfPreviousNumber = false;
-        for(int key : substitutions.keySet()){
-            if(numberIsMultipleOf(number, key)){
-                if(isMultipleOfPreviousNumber)
-                    sb.append(" ");
-                sb.append(substitutions.get(key));
-                isMultipleOfPreviousNumber = true;
-            }
-        }
-        if(!isMultipleOfPreviousNumber)
+        List<String> resultingString = new ArrayList<>();
+        for(int key : substitutions.keySet())
+            if(numberIsMultipleOf(number, key))
+                resultingString.add(substitutions.get(key));
+        if(resultingString.isEmpty())
             return String.valueOf(number);
-        return sb.toString();
+        return String.join(" ", resultingString);
     }
 
     private boolean numberIsMultipleOf(int number, int key) {

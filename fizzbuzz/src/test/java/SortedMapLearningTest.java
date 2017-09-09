@@ -14,7 +14,7 @@ public class SortedMapLearningTest {
         int secondKeyToInput = 2;
         String firstValueToInput = "bizz";
         String secondValueToInput = "fuzz";
-        preferences = new TreeMap<Integer, String>();
+        preferences = new TreeMap<>();
         preferences.put(firstKeyToInput, firstValueToInput);
         preferences.put(secondKeyToInput, secondValueToInput);
         assertTrue(preferences.firstKey() == secondKeyToInput);
@@ -25,7 +25,7 @@ public class SortedMapLearningTest {
         int key = 3;
         String value = "bizz";
         String differentValue = "fuzz";
-        preferences = new TreeMap<Integer, String>();
+        preferences = new TreeMap<>();
         preferences.put(key, value);
         preferences.put(key, differentValue);
         assertTrue(preferences.get(3).equals("fuzz"));
