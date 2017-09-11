@@ -10,8 +10,8 @@ public class SnakesAndLaddersGameTest {
     @Before
     public void setUp() throws Exception {
         SpecialEnds specialEnds = new SpecialEnds();
-        specialEnds.addSpecialEnds(12, 2);
-        specialEnds.addSpecialEnds(3, 13);
+        specialEnds.addSqureLocationLeadingTo(12, 2);
+        specialEnds.addSqureLocationLeadingTo(3, 13);
         snakesAndLaddersGame = new SnakesAndLaddersGame(specialEnds);
         player1 = new Player("Rome");
         snakesAndLaddersGame.addPlayer(player1);

@@ -8,15 +8,15 @@ public class SpecialEnds {
         mapOfSpecialEnds = new HashMap<Integer, Integer>();
     }
 
-    public void addSpecialEnds(int source, int destination){
+    public void addSqureLocationLeadingTo(int source, int destination){
         mapOfSpecialEnds.put(source, destination);
     }
 
-    public boolean hasSpecialEndFor(int squareLocation) {
+    public boolean leadsToAnotherSquareLocation(int squareLocation) {
         return mapOfSpecialEnds.containsKey(squareLocation);
     }
 
-    public int getSpecialEndFor(int squareLocation) {
+    public int getWhereTheSquareLocationLeadsTo(int squareLocation) {
         return mapOfSpecialEnds.get(squareLocation);
     }
 }

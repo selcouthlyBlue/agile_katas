@@ -15,8 +15,8 @@ public class SnakesAndLaddersGame {
         squares = new Square[lastSquareLocation];
         for(int squareLocation = 1; squareLocation < lastSquareLocation; squareLocation++){
             Square square = new Square();
-            if(specialEnds.hasSpecialEndFor(squareLocation))
-                square.setDestination(specialEnds.getSpecialEndFor(squareLocation));
+            if(specialEnds.leadsToAnotherSquareLocation(squareLocation))
+                square.setDestination(specialEnds.getWhereTheSquareLocationLeadsTo(squareLocation));
             squares[squareLocation] = square;
         }
         this.winner = Player.DUMMY_INSTANCE;
