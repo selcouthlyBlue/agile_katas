@@ -1,4 +1,4 @@
-public class BottomBerlinLamps extends GenericBerlinLamps implements BerlinLamps{
+public class BottomBerlinLamps extends AbstractBerlinLamps {
     private BottomBerlinLamps(BerlinLampBuilder builder) {
         super(builder);
     }

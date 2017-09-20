@@ -1,6 +1,6 @@
 import java.util.Arrays;
 
-class GenericBerlinLamps {
+abstract class AbstractBerlinLamps implements BerlinLamps {
     BerlinLampColor[] berlinLamps;
 
     private final BerlinLampColor lampColorForOn;
@@ -10,7 +10,7 @@ class GenericBerlinLamps {
     private final BerlinLampColor specialLampColorForOn;
     private final int specialLampIndex;
 
-    GenericBerlinLamps(BerlinLampBuilder builder) {
+    AbstractBerlinLamps(BerlinLampBuilder builder) {
         this.berlinLamps = initializeBerlinLamps(builder.getNumberOfLamps());
         this.lampColorForOn = builder.getLampColorForOn();
         this.lampValue = builder.getLampValue();
