@@ -15,7 +15,7 @@ public class DigitalTimeToBerlinTimeConverterTest {
     @Test
     public void digitalTime00_00_00InSingleMinuteLampsRow() throws Exception {
         String digitalTime = "00:00:00";
-        String berlinTime = digitalTimeToBerlinTimeConverter.getBerlinTimeInSingleMinuteLamps(digitalTime);
+        String berlinTime = digitalTimeToBerlinTimeConverter.getBottomMinutes(digitalTime);
         String expectedBerlinTime = "OOOO";
         assertBerlinTimeIsExpected(berlinTime, expectedBerlinTime);
     }
@@ -23,7 +23,7 @@ public class DigitalTimeToBerlinTimeConverterTest {
     @Test
     public void digitalTime23_59_59InSingleMinuteLampsRow() throws Exception {
         String digitalTime = "23:59:59";
-        String berlinTime = digitalTimeToBerlinTimeConverter.getBerlinTimeInSingleMinuteLamps(digitalTime);
+        String berlinTime = digitalTimeToBerlinTimeConverter.getBottomMinutes(digitalTime);
         String expectedBerlinTime = "YYYY";
         assertBerlinTimeIsExpected(berlinTime, expectedBerlinTime);
     }
@@ -31,7 +31,7 @@ public class DigitalTimeToBerlinTimeConverterTest {
     @Test
     public void digitalTime12_32_00InSingleMinuteLampsRow() throws Exception {
         String digitalTime = "12:32:00";
-        String berlinTime = digitalTimeToBerlinTimeConverter.getBerlinTimeInSingleMinuteLamps(digitalTime);
+        String berlinTime = digitalTimeToBerlinTimeConverter.getBottomMinutes(digitalTime);
         String expectedBerlinTime = "YYOO";
         assertBerlinTimeIsExpected(berlinTime, expectedBerlinTime);
     }
@@ -39,7 +39,7 @@ public class DigitalTimeToBerlinTimeConverterTest {
     @Test
     public void digitalTime12_34_00InSingleMinuteLampsRow() throws Exception {
         String digitalTime = "12:34:00";
-        String berlinTime = digitalTimeToBerlinTimeConverter.getBerlinTimeInSingleMinuteLamps(digitalTime);
+        String berlinTime = digitalTimeToBerlinTimeConverter.getBottomMinutes(digitalTime);
         String expectedBerlinTime = "YYYY";
         assertBerlinTimeIsExpected(berlinTime, expectedBerlinTime);
     }
@@ -47,7 +47,7 @@ public class DigitalTimeToBerlinTimeConverterTest {
     @Test
     public void digitalTime12_35_00InSingleMinuteLampsRow() throws Exception {
         String digitalTime = "12:35:00";
-        String berlinTime = digitalTimeToBerlinTimeConverter.getBerlinTimeInSingleMinuteLamps(digitalTime);
+        String berlinTime = digitalTimeToBerlinTimeConverter.getBottomMinutes(digitalTime);
         String expectedBerlinTime = "OOOO";
         assertBerlinTimeIsExpected(berlinTime, expectedBerlinTime);
     }
@@ -59,7 +59,7 @@ public class DigitalTimeToBerlinTimeConverterTest {
     @Test
     public void digitalTime00_00_00InFiveMinuteLampsRow() throws Exception {
         String digitalTime = "00:00:00";
-        String berlinTime = digitalTimeToBerlinTimeConverter.getBerlinTimeInFiveMinuteLamps(digitalTime);
+        String berlinTime = digitalTimeToBerlinTimeConverter.getTopMinutes(digitalTime);
         String expectedBerlinTime = "OOOOOOOOOOO";
         assertBerlinTimeIsExpected(berlinTime, expectedBerlinTime);
     }
@@ -67,7 +67,7 @@ public class DigitalTimeToBerlinTimeConverterTest {
     @Test
     public void digitalTime23_59_59InFiveMinuteLampsRow() throws Exception {
         String digitalTime = "23:59:59";
-        String berlinTime = digitalTimeToBerlinTimeConverter.getBerlinTimeInFiveMinuteLamps(digitalTime);
+        String berlinTime = digitalTimeToBerlinTimeConverter.getTopMinutes(digitalTime);
         String expectedBerlinTime = "YYRYYRYYRYY";
         assertBerlinTimeIsExpected(berlinTime, expectedBerlinTime);
     }
@@ -75,7 +75,7 @@ public class DigitalTimeToBerlinTimeConverterTest {
     @Test
     public void digitalTime12_04_00InFiveMinuteLampsRow() throws Exception {
         String digitalTime = "12:04:00";
-        String berlinTime = digitalTimeToBerlinTimeConverter.getBerlinTimeInFiveMinuteLamps(digitalTime);
+        String berlinTime = digitalTimeToBerlinTimeConverter.getTopMinutes(digitalTime);
         String expectedBerlinTime = "OOOOOOOOOOO";
         assertBerlinTimeIsExpected(berlinTime, expectedBerlinTime);
     }
@@ -83,7 +83,7 @@ public class DigitalTimeToBerlinTimeConverterTest {
     @Test
     public void digitalTime12_23_00InFiveMinuteLampsRow() throws Exception {
         String digitalTime = "12:23:00";
-        String berlinTime = digitalTimeToBerlinTimeConverter.getBerlinTimeInFiveMinuteLamps(digitalTime);
+        String berlinTime = digitalTimeToBerlinTimeConverter.getTopMinutes(digitalTime);
         String expectedBerlinTime = "YYRYOOOOOOO";
         assertBerlinTimeIsExpected(berlinTime, expectedBerlinTime);
     }
@@ -91,7 +91,7 @@ public class DigitalTimeToBerlinTimeConverterTest {
     @Test
     public void digitalTime12_35_00InFiveMinuteLampsRow() throws Exception {
         String digitalTime = "12:35:00";
-        String berlinTime = digitalTimeToBerlinTimeConverter.getBerlinTimeInFiveMinuteLamps(digitalTime);
+        String berlinTime = digitalTimeToBerlinTimeConverter.getTopMinutes(digitalTime);
         String expectedBerlinTime = "YYRYYRYOOOO";
         assertBerlinTimeIsExpected(berlinTime, expectedBerlinTime);
     }
@@ -99,7 +99,7 @@ public class DigitalTimeToBerlinTimeConverterTest {
     @Test
     public void digitalTime00_00_00InSingleHourLampsRow() throws Exception {
         String digitalTime = "00:00:00";
-        String berlinTime = digitalTimeToBerlinTimeConverter.getBerlinTimeInOneHourLamps(digitalTime);
+        String berlinTime = digitalTimeToBerlinTimeConverter.getBottomHours(digitalTime);
         String expectedBerlinTime = "OOOO";
         assertBerlinTimeIsExpected(berlinTime, expectedBerlinTime);
     }
@@ -107,7 +107,7 @@ public class DigitalTimeToBerlinTimeConverterTest {
     @Test
     public void digitalTime23_59_59InSingleHourLampsRow() throws Exception {
         String digitalTime = "23:59:59";
-        String berlinTime = digitalTimeToBerlinTimeConverter.getBerlinTimeInOneHourLamps(digitalTime);
+        String berlinTime = digitalTimeToBerlinTimeConverter.getBottomHours(digitalTime);
         String expectedBerlinTime = "RRRO";
         assertBerlinTimeIsExpected(berlinTime, expectedBerlinTime);
     }
@@ -115,7 +115,7 @@ public class DigitalTimeToBerlinTimeConverterTest {
     @Test
     public void digitalTime02_04_00InSingleHourLampsRow() throws Exception {
         String digitalTime = "02:04:00";
-        String berlinTime = digitalTimeToBerlinTimeConverter.getBerlinTimeInOneHourLamps(digitalTime);
+        String berlinTime = digitalTimeToBerlinTimeConverter.getBottomHours(digitalTime);
         String expectedBerlinTime = "RROO";
         assertBerlinTimeIsExpected(berlinTime, expectedBerlinTime);
     }
@@ -123,7 +123,7 @@ public class DigitalTimeToBerlinTimeConverterTest {
     @Test
     public void digitalTime08_23_00InSingleHourLampsRow() throws Exception {
         String digitalTime = "08:23:00";
-        String berlinTime = digitalTimeToBerlinTimeConverter.getBerlinTimeInOneHourLamps(digitalTime);
+        String berlinTime = digitalTimeToBerlinTimeConverter.getBottomHours(digitalTime);
         String expectedBerlinTime = "RRRO";
         assertBerlinTimeIsExpected(berlinTime, expectedBerlinTime);
     }
@@ -131,7 +131,7 @@ public class DigitalTimeToBerlinTimeConverterTest {
     @Test
     public void digitalTime14_35_00InSingleHourLampsRow() throws Exception {
         String digitalTime = "14:35:00";
-        String berlinTime = digitalTimeToBerlinTimeConverter.getBerlinTimeInOneHourLamps(digitalTime);
+        String berlinTime = digitalTimeToBerlinTimeConverter.getBottomHours(digitalTime);
         String expectedBerlinTime = "RRRR";
         assertBerlinTimeIsExpected(berlinTime, expectedBerlinTime);
     }
@@ -139,7 +139,7 @@ public class DigitalTimeToBerlinTimeConverterTest {
     @Test
     public void digitalTime00_00_00InFiveHoursRow() throws Exception {
         String digitalTime = "00:00:00";
-        String berlinTime = digitalTimeToBerlinTimeConverter.getBerlinTimeInFiveHourLamps(digitalTime);
+        String berlinTime = digitalTimeToBerlinTimeConverter.getTopHours(digitalTime);
         String expectedBerlinTime = "OOOO";
         assertBerlinTimeIsExpected(berlinTime, expectedBerlinTime);
     }
@@ -147,7 +147,7 @@ public class DigitalTimeToBerlinTimeConverterTest {
     @Test
     public void digitalTime23_59_59InFiveHoursRow() throws Exception {
         String digitalTime = "23:59:59";
-        String berlinTime = digitalTimeToBerlinTimeConverter.getBerlinTimeInFiveHourLamps(digitalTime);
+        String berlinTime = digitalTimeToBerlinTimeConverter.getTopHours(digitalTime);
         String expectedBerlinTime = "RRRR";
         assertBerlinTimeIsExpected(berlinTime, expectedBerlinTime);
     }
@@ -155,7 +155,7 @@ public class DigitalTimeToBerlinTimeConverterTest {
     @Test
     public void digitalTime02_04_00() throws Exception {
         String digitalTime = "02:04:00";
-        String berlinTime = digitalTimeToBerlinTimeConverter.getBerlinTimeInFiveHourLamps(digitalTime);
+        String berlinTime = digitalTimeToBerlinTimeConverter.getTopHours(digitalTime);
         String expectedBerlinTime = "OOOO";
         assertBerlinTimeIsExpected(berlinTime, expectedBerlinTime);
     }
@@ -163,7 +163,7 @@ public class DigitalTimeToBerlinTimeConverterTest {
     @Test
     public void digitalTime08_23_00() throws Exception {
         String digitalTime = "08:23:00";
-        String berlinTime = digitalTimeToBerlinTimeConverter.getBerlinTimeInFiveHourLamps(digitalTime);
+        String berlinTime = digitalTimeToBerlinTimeConverter.getTopHours(digitalTime);
         String expectedBerlinTime = "ROOO";
         assertBerlinTimeIsExpected(berlinTime, expectedBerlinTime);
     }
@@ -171,7 +171,7 @@ public class DigitalTimeToBerlinTimeConverterTest {
     @Test
     public void digitalTime16_35_00() throws Exception {
         String digitalTime = "16:35:00";
-        String berlinTime = digitalTimeToBerlinTimeConverter.getBerlinTimeInFiveHourLamps(digitalTime);
+        String berlinTime = digitalTimeToBerlinTimeConverter.getTopHours(digitalTime);
         String expectedBerlinTime = "RRRO";
         assertBerlinTimeIsExpected(berlinTime, expectedBerlinTime);
     }
@@ -179,7 +179,7 @@ public class DigitalTimeToBerlinTimeConverterTest {
     @Test
     public void digitalTime00_00_00InSecondsLamp() throws Exception {
         String digitalTime = "00:00:00";
-        String berlinTime = digitalTimeToBerlinTimeConverter.getBerlinTimeInSecondsLamp(digitalTime);
+        String berlinTime = digitalTimeToBerlinTimeConverter.getSeconds(digitalTime);
         String expectedBerlinTime = "Y";
         assertBerlinTimeIsExpected(berlinTime, expectedBerlinTime);
     }
@@ -187,7 +187,7 @@ public class DigitalTimeToBerlinTimeConverterTest {
     @Test
     public void digitalTime23_59_59InSecondsLamp() throws Exception {
         String digitalTime = "23:59:59";
-        String berlinTime = digitalTimeToBerlinTimeConverter.getBerlinTimeInSecondsLamp(digitalTime);
+        String berlinTime = digitalTimeToBerlinTimeConverter.getSeconds(digitalTime);
         String expectedBerlinTime = "O";
         assertBerlinTimeIsExpected(berlinTime, expectedBerlinTime);
     }

@@ -5,7 +5,7 @@ public class DigitalTimeToBerlinTimeConverter {
     private final int FIVE_HOUR_LAMP_VALUE = 5;
     private final int FIVE_MINUTE_LAMP_VALUE = 5;
 
-    public String getBerlinTimeInSingleMinuteLamps(String strDigitalTime) {
+    public String getBottomMinutes(String strDigitalTime) {
         DigitalTime digitalTime = new DigitalTime(strDigitalTime);
         return switchOnOneMinuteLampsWithRespectTo(digitalTime.getMinutes());
     }
@@ -35,7 +35,7 @@ public class DigitalTimeToBerlinTimeConverter {
         return zeroMinutes;
     }
 
-    public String getBerlinTimeInFiveMinuteLamps(String strDigitalTime) {
+    public String getTopMinutes(String strDigitalTime) {
         DigitalTime digitalTime = new DigitalTime(strDigitalTime);
         return switchOnFiveMinuteLampsWithRespectTo(digitalTime.getMinutes());
     }
@@ -52,7 +52,7 @@ public class DigitalTimeToBerlinTimeConverter {
         return getStringValue(resultingBerlinTime);
     }
 
-    public String getBerlinTimeInOneHourLamps(String strDigitalTime) {
+    public String getBottomHours(String strDigitalTime) {
         DigitalTime digitalTime = new DigitalTime(strDigitalTime);
         return switchOnOneHourLampsWithRespectTo(digitalTime.getHours());
     }
@@ -68,7 +68,7 @@ public class DigitalTimeToBerlinTimeConverter {
         return getStringValue(resultingBerlinTime);
     }
 
-    public String getBerlinTimeInFiveHourLamps(String strDigitalTime) {
+    public String getTopHours(String strDigitalTime) {
         DigitalTime digitalTime = new DigitalTime(strDigitalTime);
         return switchOnFiveHourLampsWithRespectTo(digitalTime.getHours());
     }
@@ -83,7 +83,7 @@ public class DigitalTimeToBerlinTimeConverter {
         return getStringValue(resultingBerlinTime);
     }
 
-    public String getBerlinTimeInSecondsLamp(String strDigitalTime) {
+    public String getSeconds(String strDigitalTime) {
         DigitalTime digitalTime = new DigitalTime(strDigitalTime);
         return switchOnSecondsLampWithRespectTo(digitalTime.getSeconds());
     }
