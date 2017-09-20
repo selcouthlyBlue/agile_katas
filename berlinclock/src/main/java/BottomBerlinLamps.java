@@ -1,10 +1,6 @@
 public class BottomBerlinLamps extends AbstractBerlinLamps {
-    private BottomBerlinLamps(BerlinLampBuilder builder) {
+    public BottomBerlinLamps(BerlinLampBuilder builder) {
         super(builder);
-    }
-
-    static BerlinLamps generateLamps(BerlinLampBuilder builder) {
-        return new BottomBerlinLamps(builder);
     }
 
     @Override

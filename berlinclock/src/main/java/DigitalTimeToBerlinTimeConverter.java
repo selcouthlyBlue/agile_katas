@@ -18,14 +18,14 @@ public class DigitalTimeToBerlinTimeConverter {
         int FIVE_MINUTE_LAMP_VALUE = 5;
         int NUMBER_OF_TOP_HOURS_LAMPS = 4;
         BerlinLampBuilder builder = new BerlinLampBuilder(NUMBER_OF_TOP_HOURS_LAMPS, BerlinLampColor.FIVE_HOUR_ON, FIVE_MINUTE_LAMP_VALUE, FIVE_HOUR_LAMP_VALUE);
-        this.topHourLamps = TopBerlinLamps.generateLamps(builder);
+        this.topHourLamps = new TopBerlinLamps(builder);
     }
 
     private void buildBottomHours() {
         int NUMBER_OF_BOTTOM_HOURS_LAMPS = 4;
         int BOTTOM_HOUR_LAMP_VALUE = 1;
         BerlinLampBuilder builder = new BerlinLampBuilder(NUMBER_OF_BOTTOM_HOURS_LAMPS, BerlinLampColor.ONE_HOUR_ON, BOTTOM_HOUR_LAMP_VALUE, FIVE_HOUR_LAMP_VALUE);
-        this.bottomHourLamps = BottomBerlinLamps.generateLamps(builder);
+        this.bottomHourLamps = new BottomBerlinLamps(builder);
     }
 
     private void buildTopMinutes() {
@@ -33,14 +33,14 @@ public class DigitalTimeToBerlinTimeConverter {
         int NUMBER_OF_TOP_MINUTES_LAMPS = 11;
         BerlinLampBuilder builder = new BerlinLampBuilder(NUMBER_OF_TOP_MINUTES_LAMPS, BerlinLampColor.FIVE_MINUTES_ON, TOP_MINUTE_LAMP_VALUE, FIVE_MINUTE_LAMP_VALUE);
         builder = builder.specialLampColorForOnAndSpecialLampIndex(BerlinLampColor.FIVE_MINUTES_ON_THIRD, 3);
-        this.topMinuteLamps = TopBerlinLamps.generateLamps(builder);
+        this.topMinuteLamps = new TopBerlinLamps(builder);
     }
 
     private void buildBottomMinutes() {
         int ONE_MINUTE_LAMP_VALUE = 1;
         int NUMBER_OF_BOTTOM_MINUTES_LAMPS = 4;
         BerlinLampBuilder builder = new BerlinLampBuilder(NUMBER_OF_BOTTOM_MINUTES_LAMPS, BerlinLampColor.ONE_MINUTE_ON, ONE_MINUTE_LAMP_VALUE, FIVE_MINUTE_LAMP_VALUE);
-        this.bottomMinuteLamps = BottomBerlinLamps.generateLamps(builder);
+        this.bottomMinuteLamps = new BottomBerlinLamps(builder);
     }
 
     public String getBottomMinutes(String strDigitalTime) {
