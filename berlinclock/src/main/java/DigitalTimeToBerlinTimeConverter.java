@@ -1,111 +1,89 @@
-import java.util.Arrays;
-
 public class DigitalTimeToBerlinTimeConverter {
-
     private final int FIVE_HOUR_LAMP_VALUE = 5;
     private final int FIVE_MINUTE_LAMP_VALUE = 5;
 
+    private BerlinLamps bottomMinuteLamps;
+    private BerlinLamps topMinuteLamps;
+    private BerlinLamps bottomHourLamps;
+    private BerlinLamps topHourLamps;
+
+    public DigitalTimeToBerlinTimeConverter() {
+        buildBottomMinutes();
+        buildTopMinutes();
+        buildBottomHours();
+        buildTopHours();
+    }
+
+    private void buildTopHours() {
+        int FIVE_MINUTE_LAMP_VALUE = 5;
+        int NUMBER_OF_TOP_HOURS_LAMPS = 4;
+        BerlinLampBuilder builder = new BerlinLampBuilder(NUMBER_OF_TOP_HOURS_LAMPS, BerlinLampColor.FIVE_HOUR_ON, FIVE_MINUTE_LAMP_VALUE, FIVE_HOUR_LAMP_VALUE);
+        this.topHourLamps = TopBerlinLamps.generateLamps(builder);
+    }
+
+    private void buildBottomHours() {
+        int NUMBER_OF_BOTTOM_HOURS_LAMPS = 4;
+        int BOTTOM_HOUR_LAMP_VALUE = 1;
+        BerlinLampBuilder builder = new BerlinLampBuilder(NUMBER_OF_BOTTOM_HOURS_LAMPS, BerlinLampColor.ONE_HOUR_ON, BOTTOM_HOUR_LAMP_VALUE, FIVE_HOUR_LAMP_VALUE);
+        this.bottomHourLamps = BottomBerlinLamps.generateLamps(builder);
+    }
+
+    private void buildTopMinutes() {
+        int TOP_MINUTE_LAMP_VALUE = 5;
+        int NUMBER_OF_TOP_MINUTES_LAMPS = 11;
+        BerlinLampBuilder builder = new BerlinLampBuilder(NUMBER_OF_TOP_MINUTES_LAMPS, BerlinLampColor.FIVE_MINUTES_ON, TOP_MINUTE_LAMP_VALUE, FIVE_MINUTE_LAMP_VALUE);
+        builder = builder.specialLampColorForOnAndSpecialLampIndex(BerlinLampColor.FIVE_MINUTES_ON_THIRD, 3);
+        this.topMinuteLamps = TopBerlinLamps.generateLamps(builder);
+    }
+
+    private void buildBottomMinutes() {
+        int ONE_MINUTE_LAMP_VALUE = 1;
+        int NUMBER_OF_BOTTOM_MINUTES_LAMPS = 4;
+        BerlinLampBuilder builder = new BerlinLampBuilder(NUMBER_OF_BOTTOM_MINUTES_LAMPS, BerlinLampColor.ONE_MINUTE_ON, ONE_MINUTE_LAMP_VALUE, FIVE_MINUTE_LAMP_VALUE);
+        this.bottomMinuteLamps = BottomBerlinLamps.generateLamps(builder);
+    }
+
     public String getBottomMinutes(String strDigitalTime) {
         DigitalTime digitalTime = new DigitalTime(strDigitalTime);
-        return switchOnOneMinuteLampsWithRespectTo(digitalTime.getMinutes());
-    }
-
-    private String switchOnOneMinuteLampsWithRespectTo(int minutes) {
-        int NUMBER_OF_ONE_MINUTE_LAMPS = 4;
-        int ONE_MINUTE_LAMP_VALUE = 1;
-        BerlinTimeSymbol[] resultingBerlinTime = initializeZeroTime(NUMBER_OF_ONE_MINUTE_LAMPS);
-        for(int lampIndex = 0; lampIndex < NUMBER_OF_ONE_MINUTE_LAMPS && minutes % FIVE_MINUTE_LAMP_VALUE != 0; lampIndex++){
-            minutes -= ONE_MINUTE_LAMP_VALUE;
-            resultingBerlinTime[lampIndex] = BerlinTimeSymbol.ONE_MINUTE_ON;
-        }
-        return getStringValue(resultingBerlinTime);
-    }
-
-    private String getStringValue(BerlinTimeSymbol[] resultingBerlinTime) {
-        StringBuilder sb = new StringBuilder();
-        for(BerlinTimeSymbol symbol : resultingBerlinTime){
-            sb.append(symbol);
-        }
-        return sb.toString();
-    }
-
-    private BerlinTimeSymbol[] initializeZeroTime(int NUMBER_OF_LAMPS) {
-        BerlinTimeSymbol[] zeroMinutes = new BerlinTimeSymbol[NUMBER_OF_LAMPS];
-        Arrays.fill(zeroMinutes, BerlinTimeSymbol.LAMP_OFF);
-        return zeroMinutes;
+        return bottomMinuteLamps.switchOnLamps(digitalTime.getMinutes());
     }
 
     public String getTopMinutes(String strDigitalTime) {
         DigitalTime digitalTime = new DigitalTime(strDigitalTime);
-        return switchOnFiveMinuteLampsWithRespectTo(digitalTime.getMinutes());
-    }
-
-    private String switchOnFiveMinuteLampsWithRespectTo(int minutes) {
-        int NUMBER_OF_FIVE_MINUTE_LAMPS = 11;
-        BerlinTimeSymbol[] resultingBerlinTime = initializeZeroTime(NUMBER_OF_FIVE_MINUTE_LAMPS);
-        for(int lampIndex = 0; lampIndex < NUMBER_OF_FIVE_MINUTE_LAMPS && minutes >= FIVE_MINUTE_LAMP_VALUE; lampIndex++){
-            minutes -= FIVE_MINUTE_LAMP_VALUE;
-            BerlinTimeSymbol lampValueToPlace =
-                    (lampIndex + 1) % 3 == 0 ? BerlinTimeSymbol.FIVE_MINUTES_ON_THIRD : BerlinTimeSymbol.FIVE_MINUTES_ON;
-            resultingBerlinTime[lampIndex] = lampValueToPlace;
-        }
-        return getStringValue(resultingBerlinTime);
+        return topMinuteLamps.switchOnLamps(digitalTime.getMinutes());
     }
 
     public String getBottomHours(String strDigitalTime) {
         DigitalTime digitalTime = new DigitalTime(strDigitalTime);
-        return switchOnOneHourLampsWithRespectTo(digitalTime.getHours());
-    }
-
-    private String switchOnOneHourLampsWithRespectTo(int hours) {
-        int NUMBER_OF_ONE_HOUR_LAMPS = 4;
-        int ONE_HOUR_LAMP_VALUE = 1;
-        BerlinTimeSymbol[] resultingBerlinTime = initializeZeroTime(NUMBER_OF_ONE_HOUR_LAMPS);
-        for(int lampIndex = 0; lampIndex < NUMBER_OF_ONE_HOUR_LAMPS && hours % FIVE_HOUR_LAMP_VALUE != 0; lampIndex++){
-            hours -= ONE_HOUR_LAMP_VALUE;
-            resultingBerlinTime[lampIndex] = BerlinTimeSymbol.ONE_HOUR_ON;
-        }
-        return getStringValue(resultingBerlinTime);
+        return bottomHourLamps.switchOnLamps(digitalTime.getHours());
     }
 
     public String getTopHours(String strDigitalTime) {
         DigitalTime digitalTime = new DigitalTime(strDigitalTime);
-        return switchOnFiveHourLampsWithRespectTo(digitalTime.getHours());
-    }
-
-    private String switchOnFiveHourLampsWithRespectTo(int hours) {
-        int NUMBER_OF_FIVE_HOUR_LAMPS = 4;
-        BerlinTimeSymbol[] resultingBerlinTime = initializeZeroTime(NUMBER_OF_FIVE_HOUR_LAMPS);
-        for(int lampIndex = 0; lampIndex < NUMBER_OF_FIVE_HOUR_LAMPS && hours >= FIVE_HOUR_LAMP_VALUE; lampIndex++){
-            hours -= FIVE_HOUR_LAMP_VALUE;
-            resultingBerlinTime[lampIndex] = BerlinTimeSymbol.FIVE_HOUR_ON;
-        }
-        return getStringValue(resultingBerlinTime);
+        return topHourLamps.switchOnLamps(digitalTime.getHours());
     }
 
     public String getSeconds(String strDigitalTime) {
         DigitalTime digitalTime = new DigitalTime(strDigitalTime);
-        return switchOnSecondsLampWithRespectTo(digitalTime.getSeconds());
+        return getBerlinSeconds(digitalTime.getSeconds());
     }
 
-    private String switchOnSecondsLampWithRespectTo(int seconds) {
-        return String.valueOf(seconds % 2 != 0 ? BerlinTimeSymbol.LAMP_OFF : BerlinTimeSymbol.SECONDS_ON);
+    private String getBerlinSeconds(int seconds) {
+        return String.valueOf(seconds % 2 != 0 ? BerlinLampColor.LAMP_OFF : BerlinLampColor.SECONDS_ON);
     }
 
     public String getBerlinTime(String strDigitalTime) {
-        DigitalTime digitalTime = new DigitalTime(strDigitalTime);
-        return switchOnSecondsLampWithRespectTo(digitalTime.getSeconds())
-                + getBerlinHours(digitalTime)
-                + getBerlinMinutes(digitalTime);
+        StringBuilder resultingBerlinTime = appendBerlinLampValues(strDigitalTime);
+        return resultingBerlinTime.toString();
     }
 
-    private String getBerlinMinutes(DigitalTime digitalTime) {
-        return switchOnFiveMinuteLampsWithRespectTo(digitalTime.getMinutes())
-                + switchOnOneMinuteLampsWithRespectTo(digitalTime.getMinutes());
-    }
-
-    private String getBerlinHours(DigitalTime digitalTime) {
-        return switchOnFiveHourLampsWithRespectTo(digitalTime.getHours())
-                + switchOnOneHourLampsWithRespectTo(digitalTime.getHours());
+    private StringBuilder appendBerlinLampValues(String strDigitalTime) {
+        StringBuilder resultingBerlinTime = new StringBuilder();
+        resultingBerlinTime.append(getSeconds(strDigitalTime));
+        resultingBerlinTime.append(getTopHours(strDigitalTime));
+        resultingBerlinTime.append(getBottomHours(strDigitalTime));
+        resultingBerlinTime.append(getTopMinutes(strDigitalTime));
+        resultingBerlinTime.append(getBottomMinutes(strDigitalTime));
+        return resultingBerlinTime;
     }
 }
