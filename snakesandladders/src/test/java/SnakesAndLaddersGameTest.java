@@ -10,8 +10,8 @@ public class SnakesAndLaddersGameTest {
     @Before
     public void setUp() throws Exception {
         SpecialEnds specialEnds = new SpecialEnds();
-        specialEnds.addSqureLocationLeadingTo(12, 2);
-        specialEnds.addSqureLocationLeadingTo(3, 13);
+        specialEnds.add(12, 2);
+        specialEnds.add(3, 13);
         snakesAndLaddersGame = new SnakesAndLaddersGame(specialEnds);
         player1 = new Player("Rome");
         snakesAndLaddersGame.addPlayer(player1);
@@ -28,7 +28,7 @@ public class SnakesAndLaddersGameTest {
     public void tokenShouldBeInSquare4AfterMoving3SpacesFromSquare1() throws Exception {
         int expectedSquareLocation = 4;
         int numberOfSpacesToMove = 3;
-        turnPlayerMoveTokenBy(numberOfSpacesToMove);
+        turnPlayerMove(numberOfSpacesToMove);
         assertPlayerIsIn(player1, expectedSquareLocation);
     }
 
@@ -37,13 +37,13 @@ public class SnakesAndLaddersGameTest {
         int expectedSquareLocation = 8;
         int firstNumberOfSpacesToMove = 3;
         int secondNumberOfSpacesToMove = 4;
-        turnPlayerMoveTokenBy(firstNumberOfSpacesToMove);
-        turnPlayerMoveTokenBy(secondNumberOfSpacesToMove);
+        turnPlayerMove(firstNumberOfSpacesToMove);
+        turnPlayerMove(secondNumberOfSpacesToMove);
         assertPlayerIsIn(player1, expectedSquareLocation);
     }
 
-    private void turnPlayerMoveTokenBy(int secondNumberOfSpacesToMove) {
-        snakesAndLaddersGame.turnPlayerMoveTokenBy(secondNumberOfSpacesToMove);
+    private void turnPlayerMove(int spaces) {
+        snakesAndLaddersGame.turnPlayerMove(spaces);
     }
 
     @Test
@@ -53,51 +53,51 @@ public class SnakesAndLaddersGameTest {
         while (dieResult != 4) {
             dieResult = player1.rollDice();
         }
-        turnPlayerMoveTokenBy(dieResult);
+        turnPlayerMove(dieResult);
         assertPlayerIsIn(player1, expectedSquareLocation);
     }
 
     @Test
     public void playerShouldWinTheGameWhenTheirTokenReachesThe100thSquare() throws Exception {
-        turnPlayerMoveTokenBy(96);
+        turnPlayerMove(96);
         int numberOfSpacesToMove = 3;
-        turnPlayerMoveTokenBy(numberOfSpacesToMove);
+        turnPlayerMove(numberOfSpacesToMove);
         assertEquals(player1, snakesAndLaddersGame.getWinner());
     }
 
     @Test
     public void playerShouldNotYetWinTheGameWhenTheirTokenMovementWillExceedThe100thSquare() throws Exception {
-        turnPlayerMoveTokenBy(96);
+        turnPlayerMove(96);
         int numberOfSpacesToMove = 4;
-        turnPlayerMoveTokenBy(numberOfSpacesToMove);
+        turnPlayerMove(numberOfSpacesToMove);
         assertNotEquals(player1, snakesAndLaddersGame.getWinner());
     }
 
     @Test
     public void tokenThatLandsOnASnakeHeadShouldGoDownOnTheTail() throws Exception {
         int expectedSquareLocation = 2;
-        turnPlayerMoveTokenBy(11);
+        turnPlayerMove(11);
         assertPlayerIsIn(player1, expectedSquareLocation);
     }
 
     @Test
     public void tokenThatLandsOnASnakeTailShouldStayThere() throws Exception {
         int expectedSquareLocation = 2;
-        turnPlayerMoveTokenBy(1);
+        turnPlayerMove(1);
         assertPlayerIsIn(player1, expectedSquareLocation);
     }
 
     @Test
     public void tokenThatLandsOnLowerEndOfTheLadderShouldGoUpTheLadder() throws Exception {
         int expectedSquareLocation = 13;
-        turnPlayerMoveTokenBy(2);
+        turnPlayerMove(2);
         assertPlayerIsIn(player1, expectedSquareLocation);
     }
 
     @Test
     public void tokenThatLandsOnUpperEndOfTheLadderShouldStayThere() throws Exception {
         int expectedSquareLocation = 13;
-        turnPlayerMoveTokenBy(12);
+        turnPlayerMove(12);
         assertPlayerIsIn(player1, expectedSquareLocation);
     }
 
@@ -129,7 +129,7 @@ public class SnakesAndLaddersGameTest {
         snakesAndLaddersGame.addPlayer(player2);
         while (isNotFirstToRoll(player1))
             snakesAndLaddersGame.determinePlayOrder();
-        turnPlayerMoveTokenBy(2);
+        turnPlayerMove(2);
         assertTurnPlayerIs(player2);
     }
 
@@ -139,8 +139,8 @@ public class SnakesAndLaddersGameTest {
         snakesAndLaddersGame.addPlayer(player2);
         while (isNotFirstToRoll(player1))
             snakesAndLaddersGame.determinePlayOrder();
-        turnPlayerMoveTokenBy(2);
-        turnPlayerMoveTokenBy(2);
+        turnPlayerMove(2);
+        turnPlayerMove(2);
         assertTurnPlayerIs(player1);
     }
 
@@ -164,7 +164,7 @@ public class SnakesAndLaddersGameTest {
         snakesAndLaddersGame.addComputerToGame();
         while (isNotFirstToRoll(computer))
             snakesAndLaddersGame.determinePlayOrder();
-        turnPlayerMoveTokenBy(1);
+        turnPlayerMove(1);
         assertPlayerIsIn(computer, expectedSquareLocation);
     }
 

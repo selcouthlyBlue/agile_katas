@@ -8,7 +8,7 @@ public class SpecialEnds {
         mapOfSpecialEnds = new HashMap<Integer, Integer>();
     }
 
-    public void addSqureLocationLeadingTo(int source, int destination){
+    public void add(int source, int destination){
         mapOfSpecialEnds.put(source, destination);
     }
 
@@ -16,7 +16,7 @@ public class SpecialEnds {
         return mapOfSpecialEnds.containsKey(squareLocation);
     }
 
-    public int getWhereTheSquareLocationLeadsTo(int squareLocation) {
+    public int getDestination(int squareLocation) {
         return mapOfSpecialEnds.get(squareLocation);
     }
 }

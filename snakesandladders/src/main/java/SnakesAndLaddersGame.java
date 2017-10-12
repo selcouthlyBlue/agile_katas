@@ -1,60 +1,60 @@
 import java.util.*;
 
 public class SnakesAndLaddersGame {
-    private Map<Player, GameToken> playerGameTokenMap;
+    private Map<Player, Token> playerTokenMap;
     private Player winner;
     private final int lastSquareLocation = 101;
-    private Square[] squares;
+    private Space[] spaces;
     private final Player computer = new Player("COMPUTER");
     private LinkedList<Player> turnOrder;
-    private int turnPlayerIndex;
+    private int turnNumber;
 
     public SnakesAndLaddersGame(SpecialEnds specialEnds) {
-        playerGameTokenMap = new HashMap<Player, GameToken>();
+        playerTokenMap = new HashMap<Player, Token>();
         turnOrder = new LinkedList<Player>();
-        squares = new Square[lastSquareLocation];
+        spaces = new Space[lastSquareLocation];
         for(int squareLocation = 1; squareLocation < lastSquareLocation; squareLocation++){
-            Square square = new Square();
+            Space space = new Space();
             if(specialEnds.leadsToAnotherSquareLocation(squareLocation))
-                square.setDestination(specialEnds.getWhereTheSquareLocationLeadsTo(squareLocation));
-            squares[squareLocation] = square;
+                space.setDestination(specialEnds.getDestination(squareLocation));
+            spaces[squareLocation] = space;
         }
-        this.winner = Player.DUMMY_INSTANCE;
+        this.winner = Player.NO_ONE;
     }
 
     public void addPlayer(Player player) {
         turnOrder.clear();
-        playerGameTokenMap.put(player, new GameToken());
+        playerTokenMap.put(player, new Token());
     }
 
     public int getPositionOfTokenOf(Player tokenOwner) {
-        return playerGameTokenMap.get(tokenOwner).getSquareLocation();
+        return playerTokenMap.get(tokenOwner).getLocation();
     }
 
-    public void turnPlayerMoveTokenBy(int numberOfSpacesToMove) {
+    public void turnPlayerMove(int spaces) {
         Player turnPlayer = getTurnPlayer();
-        GameToken gameToken = playerGameTokenMap.get(turnPlayer);
-        if(tokenWillGoPastTheLastSquare(gameToken, numberOfSpacesToMove))
+        Token token = playerTokenMap.get(turnPlayer);
+        if(tokenWillGoPastTheLastSquare(token, spaces))
             return;
-        gameToken.move(numberOfSpacesToMove);
-        int squareLocationOfToken = gameToken.getSquareLocation();
-        if(squareLocationOfTokenHasASpecialEnd(squareLocationOfToken))
-            gameToken.move(squares[squareLocationOfToken].getDestination() - squareLocationOfToken);
-        if(tokenIsInTheLastSquare(gameToken))
+        token.move(spaces);
+        int tokenLocation = token.getLocation();
+        if(hasSpecialEnd(tokenLocation))
+            token.move(this.spaces[tokenLocation].getDestination() - tokenLocation);
+        if(hasWonTheGame(token))
             this.winner = turnPlayer;
-        turnPlayerIndex++;
+        turnNumber++;
     }
 
-    private boolean squareLocationOfTokenHasASpecialEnd(int squareLocationOfToken) {
-        return squares[squareLocationOfToken].isYieldingToAnotherDestination();
+    private boolean hasSpecialEnd(int squareLocationOfToken) {
+        return spaces[squareLocationOfToken].isYieldingToAnotherDestination();
     }
 
-    private boolean tokenIsInTheLastSquare(GameToken gameToken) {
-        return gameToken.getSquareLocation() == lastSquareLocation - 1;
+    private boolean hasWonTheGame(Token token) {
+        return token.getLocation() == lastSquareLocation - 1;
     }
 
-    private boolean tokenWillGoPastTheLastSquare(GameToken gameToken, int numberOfSpacesToMove) {
-        return gameToken.getSquareLocation() + numberOfSpacesToMove >  lastSquareLocation - 1;
+    private boolean tokenWillGoPastTheLastSquare(Token token, int numberOfSpacesToMove) {
+        return token.getLocation() + numberOfSpacesToMove >  lastSquareLocation - 1;
     }
 
     public Player getWinner() {
@@ -63,13 +63,13 @@ public class SnakesAndLaddersGame {
 
     public Player getTurnPlayer() {
         if(turnOrder.isEmpty())
-            return Player.DUMMY_INSTANCE;
-        return turnOrder.get(turnPlayerIndex % playerGameTokenMap.size());
+            return Player.NO_ONE;
+        return turnOrder.get(turnNumber % playerTokenMap.size());
     }
 
     public void determinePlayOrder() {
         SortedMap<Integer, Player> playOrderPlayerMap = new TreeMap<Integer, Player>();
-        for(Player player : playerGameTokenMap.keySet()){
+        for(Player player : playerTokenMap.keySet()){
             int dieRollResult = player.rollDice();
             if(!playOrderPlayerMap.containsKey(dieRollResult))
                 playOrderPlayerMap.put(dieRollResult, player);

@@ -3,7 +3,7 @@ import java.util.Random;
 public class Player {
     private final String playerName;
 
-    public static final Player DUMMY_INSTANCE = new Player("");
+    public static final Player NO_ONE = new Player("NO ONE");
 
     public Player(String playerName) {
         this.playerName = playerName;
