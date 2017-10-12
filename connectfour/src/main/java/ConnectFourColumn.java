@@ -10,7 +10,6 @@ public class ConnectFourColumn {
         this.currentIndex = 0;
     }
 
-
     public int getNumberOfRows() {
         return gameTokenRows.size();
     }
