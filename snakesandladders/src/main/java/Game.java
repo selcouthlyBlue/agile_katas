@@ -1,23 +1,23 @@
 import java.util.*;
 
-public class SnakesAndLaddersGame {
+public class Game {
     private Map<Player, Token> playerTokenMap;
     private Player winner;
     private final int lastSquareLocation = 101;
-    private Space[] spaces;
+    private Space[] board;
     private final Player computer = new Player("COMPUTER");
     private LinkedList<Player> turnOrder;
     private int turnNumber;
 
-    public SnakesAndLaddersGame(SpecialEnds specialEnds) {
+    public Game(SpecialEnds specialEnds) {
         playerTokenMap = new HashMap<Player, Token>();
         turnOrder = new LinkedList<Player>();
-        spaces = new Space[lastSquareLocation];
+        board = new Space[lastSquareLocation];
         for(int squareLocation = 1; squareLocation < lastSquareLocation; squareLocation++){
             Space space = new Space();
             if(specialEnds.leadsToAnotherSquareLocation(squareLocation))
                 space.setDestination(specialEnds.getDestination(squareLocation));
-            spaces[squareLocation] = space;
+            board[squareLocation] = space;
         }
         this.winner = Player.NO_ONE;
     }
@@ -39,14 +39,14 @@ public class SnakesAndLaddersGame {
         token.move(spaces);
         int tokenLocation = token.getLocation();
         if(hasSpecialEnd(tokenLocation))
-            token.move(this.spaces[tokenLocation].getDestination() - tokenLocation);
+            token.move(this.board[tokenLocation].getDestination() - tokenLocation);
         if(hasWonTheGame(token))
             this.winner = turnPlayer;
         turnNumber++;
     }
 
     private boolean hasSpecialEnd(int squareLocationOfToken) {
-        return spaces[squareLocationOfToken].isYieldingToAnotherDestination();
+        return board[squareLocationOfToken].isYieldingToAnotherDestination();
     }
 
     private boolean hasWonTheGame(Token token) {

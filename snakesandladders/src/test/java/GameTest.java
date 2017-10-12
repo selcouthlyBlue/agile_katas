@@ -3,8 +3,8 @@ import org.junit.Test;
 
 import static org.junit.Assert.*;
 
-public class SnakesAndLaddersGameTest {
-    private SnakesAndLaddersGame snakesAndLaddersGame;
+public class GameTest {
+    private Game game;
     private Player player1;
 
     @Before
@@ -12,10 +12,10 @@ public class SnakesAndLaddersGameTest {
         SpecialEnds specialEnds = new SpecialEnds();
         specialEnds.add(12, 2);
         specialEnds.add(3, 13);
-        snakesAndLaddersGame = new SnakesAndLaddersGame(specialEnds);
+        game = new Game(specialEnds);
         player1 = new Player("Rome");
-        snakesAndLaddersGame.addPlayer(player1);
-        snakesAndLaddersGame.determinePlayOrder();
+        game.addPlayer(player1);
+        game.determinePlayOrder();
     }
 
     @Test
@@ -43,7 +43,7 @@ public class SnakesAndLaddersGameTest {
     }
 
     private void turnPlayerMove(int spaces) {
-        snakesAndLaddersGame.turnPlayerMove(spaces);
+        game.turnPlayerMove(spaces);
     }
 
     @Test
@@ -62,7 +62,7 @@ public class SnakesAndLaddersGameTest {
         turnPlayerMove(96);
         int numberOfSpacesToMove = 3;
         turnPlayerMove(numberOfSpacesToMove);
-        assertEquals(player1, snakesAndLaddersGame.getWinner());
+        assertEquals(player1, game.getWinner());
     }
 
     @Test
@@ -70,7 +70,7 @@ public class SnakesAndLaddersGameTest {
         turnPlayerMove(96);
         int numberOfSpacesToMove = 4;
         turnPlayerMove(numberOfSpacesToMove);
-        assertNotEquals(player1, snakesAndLaddersGame.getWinner());
+        assertNotEquals(player1, game.getWinner());
     }
 
     @Test
@@ -104,31 +104,31 @@ public class SnakesAndLaddersGameTest {
     @Test
     public void player1ShouldBeFirstIfPlayer1RollsHigherThanPlayer2() throws Exception {
         Player player2 = new Player("Ein");
-        snakesAndLaddersGame.addPlayer(player2);
+        game.addPlayer(player2);
         while (isNotFirstToRoll(player1))
-            snakesAndLaddersGame.determinePlayOrder();
+            game.determinePlayOrder();
         assertTurnPlayerIs(player1);
     }
 
     @Test
     public void player2ShouldBeFirstIfPlayer2RollsHigherThanPlayer1() throws Exception {
         Player player2 = new Player("Ein");
-        snakesAndLaddersGame.addPlayer(player2);
+        game.addPlayer(player2);
         while (isNotFirstToRoll(player2))
-            snakesAndLaddersGame.determinePlayOrder();
+            game.determinePlayOrder();
         assertTurnPlayerIs(player2);
     }
 
     private void assertTurnPlayerIs(Player player2) {
-        assertEquals(player2, snakesAndLaddersGame.getTurnPlayer());
+        assertEquals(player2, game.getTurnPlayer());
     }
 
     @Test
     public void player2ShouldGoNextAfterPlayer1() throws Exception {
         Player player2 = new Player("Ein");
-        snakesAndLaddersGame.addPlayer(player2);
+        game.addPlayer(player2);
         while (isNotFirstToRoll(player1))
-            snakesAndLaddersGame.determinePlayOrder();
+            game.determinePlayOrder();
         turnPlayerMove(2);
         assertTurnPlayerIs(player2);
     }
@@ -136,24 +136,24 @@ public class SnakesAndLaddersGameTest {
     @Test
     public void player1ShouldGoNextAfterPlayer2GoingAfterPlayer1() throws Exception {
         Player player2 = new Player("Ein");
-        snakesAndLaddersGame.addPlayer(player2);
+        game.addPlayer(player2);
         while (isNotFirstToRoll(player1))
-            snakesAndLaddersGame.determinePlayOrder();
+            game.determinePlayOrder();
         turnPlayerMove(2);
         turnPlayerMove(2);
         assertTurnPlayerIs(player1);
     }
 
     private boolean isNotFirstToRoll(Player player) {
-        return !player.equals(snakesAndLaddersGame.getTurnPlayer());
+        return !player.equals(game.getTurnPlayer());
     }
 
     @Test
     public void computerShouldGoFirstIfComputerRollsHigherThanPlayer1() throws Exception {
         Player expectedTurnPlayer = new Player("COMPUTER");
-        snakesAndLaddersGame.addComputerToGame();
+        game.addComputerToGame();
         while (isNotFirstToRoll(expectedTurnPlayer))
-            snakesAndLaddersGame.determinePlayOrder();
+            game.determinePlayOrder();
         assertTurnPlayerIs(expectedTurnPlayer);
     }
 
@@ -161,14 +161,14 @@ public class SnakesAndLaddersGameTest {
     public void computerShouldBeAbleToRollTheDie() throws Exception {
         int expectedSquareLocation = 2;
         Player computer = new Player("COMPUTER");
-        snakesAndLaddersGame.addComputerToGame();
+        game.addComputerToGame();
         while (isNotFirstToRoll(computer))
-            snakesAndLaddersGame.determinePlayOrder();
+            game.determinePlayOrder();
         turnPlayerMove(1);
         assertPlayerIsIn(computer, expectedSquareLocation);
     }
 
     private void assertPlayerIsIn(Player computer, int expectedSquareLocation) {
-        assertTrue(snakesAndLaddersGame.getPositionOfTokenOf(computer) == expectedSquareLocation);
+        assertTrue(game.getPositionOfTokenOf(computer) == expectedSquareLocation);
     }
 }
