@@ -1,12 +1,15 @@
 import java.util.Arrays;
 
 public class Grid {
-    private Column[] columns;
+    private final Token[][] grid;
+    private final int[] currentNumbersOfTokens;
 
     public Grid(int numberOfRows, int numberOfColumns) {
-        columns = new Column[numberOfColumns];
-        for(int i = 0; i < columns.length; i++){
-            columns[i] = new Column(numberOfRows);
+        grid = new Token[numberOfRows][numberOfColumns];
+        currentNumbersOfTokens = new int[numberOfColumns];
+        Arrays.fill(currentNumbersOfTokens, 0);
+        for(Token[] row : grid){
+            Arrays.fill(row, Token.NULL_COLOR);
         }
     }
 
@@ -38,11 +41,18 @@ public class Grid {
 
     public void put(Token token, int column) {
         checkIfColumnExists(column);
-        columns[column].place(token);
+        checkIfColumnIsFull(column);
+        grid[getNumberOfTokensIn(column)][column] = token;
+        currentNumbersOfTokens[column]++;
+    }
+
+    private void checkIfColumnIsFull(int column) {
+        if(getNumberOfTokensIn(column) >= getNumberOfRows())
+            throw new InvalidGridOperationException(InvalidGridOperationException.COLUMN_IS_FULL_MESSAGE);
     }
 
     private void checkIfColumnExists(int column) {
-        if(column < 0 || column >= columns.length)
+        if(column < 0 || column >= grid[0].length)
             throw new InvalidGridOperationException(InvalidGridOperationException.COLUMN_DOES_NOT_EXIST_MESSAGE);
     }
 
@@ -55,7 +65,7 @@ public class Grid {
     }
 
     private Token getColorOfTokenPlacedIn(int rowWhereTokenIsPlaced, int column) {
-        return columns[column].getColorOfTokenPlacedIn(rowWhereTokenIsPlaced);
+        return grid[rowWhereTokenIsPlaced][column];
     }
 
     public Token[] getRowOfTokensAlong(int rowWhereTokenIsPlaced) {
@@ -68,15 +78,15 @@ public class Grid {
 
     public int getNumberOfTokensIn(int column) {
         checkIfColumnExists(column);
-        return columns[column].getCurrentNumberOfTokens();
+        return currentNumbersOfTokens[column];
     }
 
     public int getNumberOfRows() {
-        return columns[0].getNumberOfRows();
+        return grid.length;
     }
 
     public int getNumberOfColumns() {
-        return columns.length;
+        return grid[0].length;
     }
 
     @Override
@@ -90,6 +100,6 @@ public class Grid {
     }
 
     public int getRowWhereTokenIsPlaced(int column) {
-        return columns[column].getCurrentNumberOfTokens() - 1;
+        return currentNumbersOfTokens[column] - 1;
     }
 }
