@@ -79,4 +79,14 @@ public class ConnectFourGrid {
     public int getNumberOfColumns() {
         return connectFourColumns.size();
     }
+
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        for(int i = 0; i < getNumberOfRows(); i++){
+            sb.append(Arrays.toString(getRowOfTokensAlong(i)));
+            sb.append("\n");
+        }
+        return sb.toString();
+    }
 }
