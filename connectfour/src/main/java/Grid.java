@@ -43,7 +43,7 @@ public class Grid {
 
     private void checkIfColumnExists(int column) {
         if(column < 0 || column >= columns.length)
-            throw new NonexistentColumnException("Column does not exist");
+            throw new NonexistentColumnException(NonexistentColumnException.COLUMN_DOES_NOT_EXIST_MESSAGE);
     }
 
     public Token[] getColumnOfTokensAlong(int column) {

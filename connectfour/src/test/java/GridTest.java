@@ -31,7 +31,8 @@ public class GridTest {
         try {
             grid.getNumberOfTokensIn(nonExistentColumn);
             fail();
-        } catch (NonexistentColumnException ignored) {
+        } catch (NonexistentColumnException e) {
+            assertEquals(NonexistentColumnException.COLUMN_DOES_NOT_EXIST_MESSAGE, e.getMessage());
         }
     }
 
