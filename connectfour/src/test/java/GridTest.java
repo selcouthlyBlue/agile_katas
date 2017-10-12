@@ -31,8 +31,8 @@ public class GridTest {
         try {
             grid.getNumberOfTokensIn(nonExistentColumn);
             fail();
-        } catch (NonexistentColumnException e) {
-            assertEquals(NonexistentColumnException.COLUMN_DOES_NOT_EXIST_MESSAGE, e.getMessage());
+        } catch (InvalidGridOperationException e) {
+            assertExceptionMessageIs(InvalidGridOperationException.COLUMN_DOES_NOT_EXIST_MESSAGE, e.getMessage());
         }
     }
 
@@ -51,14 +51,19 @@ public class GridTest {
     }
 
     @Test
-    public void placingATokenInAColumnFilledWithTokensShouldRaiseAnException() throws Exception {
+    public void placingATokenInAColumnFullOfTokensShouldRaiseAnException() throws Exception {
         int column = 6;
         alternatelyPlaceSixTokensIn(column);
         try{
             place(player2Token, column);
             fail();
-        } catch (FullColumnException ignored) {
+        } catch (InvalidGridOperationException e) {
+            assertExceptionMessageIs(InvalidGridOperationException.COLUMN_IS_FULL_MESSAGE, e.getMessage());
         }
+    }
+
+    private void assertExceptionMessageIs(String expectedMessage, String actualMessage) {
+        assertEquals(expectedMessage, actualMessage);
     }
 
     private void alternatelyPlaceSixTokensIn(int column) {
@@ -84,7 +89,8 @@ public class GridTest {
         try {
             placePlayer1TokenIn(nonExistentColumn);
             fail();
-        } catch (NonexistentColumnException ignored) {
+        } catch (InvalidGridOperationException e) {
+            assertExceptionMessageIs(InvalidGridOperationException.COLUMN_DOES_NOT_EXIST_MESSAGE, e.getMessage());
         }
     }
 }

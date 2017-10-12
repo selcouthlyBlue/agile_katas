@@ -13,7 +13,7 @@ public class Column {
 
     public void place(Token token) {
         if(columnIsFull())
-            throw new FullColumnException("Column is full!");
+            throw new InvalidGridOperationException(InvalidGridOperationException.COLUMN_IS_FULL_MESSAGE);
         column[currentIndex] = token;
         currentIndex++;
     }

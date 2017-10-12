@@ -8,7 +8,7 @@ public class Game {
         this.grid = new Grid(numberOfRows, numberOfColumns);
     }
 
-    public void put(Token token, int column) throws GameIsOverException {
+    public void put(Token token, int column) {
         grid.put(token, column);
         if(placingTokenCompletesWinningSequence(column, grid.getRowWhereTokenIsPlaced(column)))
             winner = token;
