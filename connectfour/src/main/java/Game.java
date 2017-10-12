@@ -26,19 +26,18 @@ public class Game {
     }
 
     private boolean hasWinningSequence(Token[] connectingTokens, int placedTokenIndex) {
-        final int LEFT = 1;
-        final int RIGHT = -1;
-        return completesWinningSequence(connectingTokens, placedTokenIndex, LEFT) ||
-                completesWinningSequence(connectingTokens, placedTokenIndex, RIGHT);
+        return completesWinningSequence(connectingTokens, placedTokenIndex, Direction.E) ||
+                completesWinningSequence(connectingTokens, placedTokenIndex, Direction.W);
     }
 
-    private boolean completesWinningSequence(Token[] connectingTokens, int currentlyPlacedTokenIndex, int direction) {
-        int startingIndex = currentlyPlacedTokenIndex + (numberOfRequiredConnectingTokensOfSameColorToWin - 1) * -direction;
+    private boolean completesWinningSequence(Token[] connectingTokens, int currentlyPlacedTokenIndex, Direction direction) {
+        int directionValue = direction.getValue();
+        int startingIndex = currentlyPlacedTokenIndex + (numberOfRequiredConnectingTokensOfSameColorToWin - 1) * -directionValue;
         int numberOfConnectingTokens = connectingTokens.length;
         if(!indexIsWithinBounds(startingIndex, numberOfConnectingTokens))
             return false;
         Token colorOfPlacedToken = connectingTokens[currentlyPlacedTokenIndex];
-        for(int index = startingIndex; index != currentlyPlacedTokenIndex && indexIsWithinBounds(startingIndex, numberOfConnectingTokens); index += direction){
+        for(int index = startingIndex; index != currentlyPlacedTokenIndex && indexIsWithinBounds(startingIndex, numberOfConnectingTokens); index += directionValue){
             if(areOfDifferentColors(colorOfPlacedToken, connectingTokens[index]))
                 return false;
         }
