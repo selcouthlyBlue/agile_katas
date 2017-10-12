@@ -1,5 +1,5 @@
 public enum Token {
-    BLUE, YELLOW, NULL_COLOR;
+    BLUE, YELLOW, NONE;
 
     @Override
     public String toString() {

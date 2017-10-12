@@ -9,7 +9,7 @@ public class Grid {
         currentNumbersOfTokens = new int[numberOfColumns];
         Arrays.fill(currentNumbersOfTokens, 0);
         for(Token[] row : grid){
-            Arrays.fill(row, Token.NULL_COLOR);
+            Arrays.fill(row, Token.NONE);
         }
     }
 

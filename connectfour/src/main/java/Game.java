@@ -4,7 +4,7 @@ public class Game {
     private Token winner;
 
     public Game(int numberOfRows, int numberOfColumns) {
-        this.winner = Token.NULL_COLOR;
+        this.winner = Token.NONE;
         this.grid = new Grid(numberOfRows, numberOfColumns);
     }
 

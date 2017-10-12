@@ -42,7 +42,7 @@ public class GameTest {
     @Test
     public void aPlayerNotConnectingFourVerticalTokensOfSameColorShouldNotWinTheGameYet() throws Exception {
         game.put(player2Token, 0);
-        assertWinnerIs(Token.NULL_COLOR);
+        assertWinnerIs(Token.NONE);
     }
 
     @Test
