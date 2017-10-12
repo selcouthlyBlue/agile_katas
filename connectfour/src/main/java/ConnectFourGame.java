@@ -48,4 +48,9 @@ public class ConnectFourGame {
     private boolean areOfDifferentColors(GameTokenColor colorOfTokenPlaced, GameTokenColor colorOfConnectingToken) {
         return colorOfTokenPlaced != colorOfConnectingToken;
     }
+
+    @Override
+    public String toString() {
+        return String.valueOf(connectFourGrid);
+    }
 }
