@@ -1,4 +1,4 @@
-public enum GameTokenColor {
+public enum Token {
     BLUE, YELLOW, NULL_COLOR;
 
     @Override
